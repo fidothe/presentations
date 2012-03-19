@@ -9,6 +9,7 @@ body {
   font-family: 'Puritan', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+/* Basic typography */
 h1 {
   font-size: 2em;
   line-height: 1;
@@ -17,10 +18,35 @@ h1 {
 p, li {
   line-height: 1.2;
 }
+p {
+  margin-top: 0.6em;
+}
+li {
+  display: list-item;
+  list-style: square outside;
+  margin-top: 0.3em;
+}
 code {
   background-color: rgba(150,150,150,0.4);
   font-family: 'Ubuntu Mono';
 }
+a:link, a:visited {
+  color: hsl(210, 70%, 50%);
+  border-bottom: 1px dashed hsl(210, 70%, 50%);
+  text-decoration: none;
+}
+a:hover, a:focus {
+  border-bottom: 0;
+  background: hsl(210, 70%, 85%);
+}
+/* code example */
+.highlight {
+  font-family: "Ubuntu Mono";
+  font-size: 25pt;
+  line-height: 1.2;
+}
+
+/* impress.js 'steps' */
 .step {
   width:              900px;
   padding:            0 50px;
@@ -34,7 +60,9 @@ code {
 .step.half-width {
   width: 400px;
 }
-
+li.step {
+  display: block;
+}
 /* embedded page */
 iframe.step {
   width: 1200px;
@@ -49,12 +77,6 @@ iframe.step {
   left: -50px;
 }
 
-/* code example */
-.highlight {
-  font-family: "Ubuntu Mono";
-  font-size: 25pt;
-  line-height: 1.2;
-}
 
 /* chart step */
 .chart {
