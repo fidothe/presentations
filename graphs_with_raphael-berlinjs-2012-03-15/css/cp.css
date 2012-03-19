@@ -1,0 +1,97 @@
+.fallback-message {
+  display: none;
+}
+.impress-not-supported .fallback-message {
+    display: block;
+}
+body {
+  font-size: 50px;
+  font-family: 'Puritan', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+h1 {
+  font-size: 2em;
+  line-height: 1;
+  font-weight: 700;
+}
+p, li {
+  line-height: 1.2;
+}
+code {
+  background-color: rgba(150,150,150,0.4);
+  font-family: 'Ubuntu Mono';
+}
+.step {
+  width:              900px;
+  padding:            0 50px;
+  -webkit-box-sizing: padding-box;
+  -moz-box-sizing:    padding-box;
+  -ms-box-sizing:     padding-box;
+  -o-box-sizing:      padding-box;
+  box-sizing:         padding-box;
+  /* border: 1px solid black; */
+}
+.step.half-width {
+  width: 400px;
+}
+
+/* embedded page */
+iframe.step {
+  width: 1200px;
+  height: 700px;
+  padding: 0;
+}
+
+/* screengrab */
+.step img.screengrab {
+  display: block;
+  position: relative;
+  left: -50px;
+}
+
+/* code example */
+.highlight {
+  font-family: "Ubuntu Mono";
+  font-size: 25pt;
+  line-height: 1.2;
+}
+
+/* chart step */
+.chart {
+  position: relative;
+}
+.chart table {
+  display: none;
+}
+.chart .canvas {
+  position: relative;
+  height: 400px;
+  width: 600px;
+  top: 0;
+  left: 0;
+}
+
+.democanvas {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 600px;
+  border: 1px solid gray;
+}
+
+/* transitions */
+/* fade out inactive slides */
+.step {
+    -webkit-transition: opacity 1s;
+    -moz-transition:    opacity 1s;
+    -ms-transition:     opacity 1s;
+    -o-transition:      opacity 1s;
+    transition:         opacity 1s;
+}
+.step:not(.active) {
+    opacity: 0.3;
+}
+.notes {
+  display: none;
+}
