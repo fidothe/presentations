@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>notes</title>
+    <meta name="author" content="matt">
+    <meta name="generator" content="iA Writer for Mac 1.2.2">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <style type="text/css">
+      body { color: #222; font: normal normal 400 100%/1.5em georgia,serif; margin: 3em auto; width: 40em }
+      a:link { color: #3366CC }
+      a:visited { color: #224488 }
+      blockquote,ol,p,ul { display: block; margin: 0 0 1.5em }
+      blockquote { border-left: solid .1em #E4E4E4; color: #919191; padding: 0 1.5em 0 1.4em }
+      code { font: normal normal 87.5%/1.71428571em monospace,sans-serif }
+      img { display: block; margin: 1.5em auto }
+      pre { display: block; font: normal normal 87.5%/1.71428571em monospace,sans-serif; margin: 1.71428571em }
+      h1,h2,h3,h4,h5,h6 { font-weight: 400 }
+      h1 { font-size: 225%; line-height: 1.3334em; margin: 0 0 .1666em }
+      h2 { font-size: 175%; line-height: 1.28571429em; margin: 0 0 .35714286em }
+      h3 { font-size: 137.5%; line-height: 1.3636em; margin: 0 0 .5em }
+      h4,h5,h6 { font-size: 112.5%; line-height: 1.3334em; margin: 0 0 .7778em }
+      ol,ul { list-style-position: outside; padding: 0 }
+      ol ol,ol ul,ul ol,ul ul { margin: 0 0 .75em 2em }
+      table { border-collapse: collapse; margin: 1.5em 0; width: 100% }
+      td,th { border: solid .1em #000; font-family: sans-serif; font-size: 87.5%; line-height: 1.71428571em; text-align: center }
+    </style>
+  </head>
+  <body>
+    <h1>Visualising public service: Seeing inside Birmingham City Council's interactions with the public</h1>
+
+<p>Birmingham City Council is Europe's largest municipal authority. In 2011 they commissioned a project to visualize the data coming out of their call centres: what, and where, the public were contacting them about, and when they were doing it. The result was http://civicdashboard.org.uk/, which we built together with the digital design agency Mudlark, in a short space of time, and on a very tight budget.</p>
+
+<h1>Intro</h1>
+<ul><li>About me
+<li>About the project
+<li>Going through the site (demo or video?)
+</li></ul>
+<h1>Input: what we have to work with</h1>
+<ul><li>Quick arch overview
+</li></ul>
+<h2>'Highly Structured'</h2>
+<ul><li>Birmingham's SAP system is used to record interactions between the public and Council staff.
+<li>Complex and opaque data schema
+<li>Almost everything that looks like text is actually a field with enumerated values
+<li>Call-centre staff pick from these multiple-choice lists to allocate contacts to things. It's a 6-level deep nested hierarhcy
+<li>Show STT
+</li></ul>
+<h2>SAP &amp; CSV (plus a Unicode digression)	</h2>
+<ul><li>Show CSV
+<li>SAP Open Hub
+<li>CSVs were not really CSVs, they were fixed-width files that happened to have commas between the fields
+</li></ul>
+<h2>Understanding the schema / schema stability</h2>
+<ul><li>The schema wasn't really a schema, more of an ontology
+<li>The ontology wasn't really an ontology, more of a spreadsheet
+<li>The structure wasn't so much structure as a reflection of how the organisation wanted to think of itself
+<li>The structure was tightly coupled to the org chart.
+</li></ul>
+<h2>The personal data problem</h2>
+<ul><li>This data has postcodes in it. Unlike the US or Germany, a full UK postcode identifies somewhere to within 15 dwellings or so (i.e. a reasonably sized street will have several postcodes spread along it).
+<li>The are several problems:
+<ul><li>Data scarcity enables identification (few reports from an area)
+<li>Extraordinarily sensitive data (e.g. postcodes for a women's refuge)
+<li>Postcode refers to a specific institution, making indentification easy
+</li></ul></li></ul>
+<h2>Other notables</h2>
+<ul><li>Getting all the possible values of an enumerated field
+<ul><li>Lots of the fields with enumerated values required enumeration in our output (e.g. lists, charts) but we hadn't seen all possible values
+</li></ul><li>The strangest things will be genuinely hard for your data provider
+<ul><li>providing the files in a secure manner.
+<li>providing machine-gunerated data schema stuff
+</li></ul></li></ul>
+<h1>Representation: storing</h1>
+<h2>in SQL</h2>
+<ul><li>Look at the funny schema diagram
+</li></ul>
+<h2>Exploration - figuring out what could be done</h2>
+<ul><li>If you're presented with a big dump of data, the first thing to do is figure out what you can do with it.
+<li>The best way to do that is to ask it questions
+<li>The best way to do <em>that</em> is to pull it into a data structure you can programmatically interrogate.
+</li></ul>
+<h2>Slicing the data</h2>
+<ul><li>What are the major axes of the data?
+<li>how does it organise itself?
+<li>what are the consistent kinds of grouping you can do?
+<li>Put another way, applying something like 3NF to your data, what's left?
+</li></ul>
+<h2>Cutting the data - time / location / structure</h2>
+<ul><li>Our data presented itself grouped by time (when did a contact happen), location (where is the contacter / where is the issue), and structure (which organisational bucket)
+</li></ul>
+<h2>The grand Mongo representation </h2>
+<ul><li>Everything
+<li>Actually, the 'Council' layer is just an aggregation of everything below it
+<li>Actually everything is just an aggregation of per-hour contacts to an L4 activity in a Ward
+<li>But then, isn't what you actually want is those aggregations…
+</li></ul>
+<h2>Deeply nested data structures in MongoDB</h2>
+<ul><li><ul><li>'ORM' / 'ODM': seems to offer many useful shortcuts for creating and manipulating documents with lots of components you could also consider documents. In early 2011 none of the Ruby ones allowed arbitrary nesting of the same Document class
+<li>It's a big hash: ODMs are seductive and offer certain storage and retrieval shortcuts. Fundamentally, MongoDB documents are big hashes - hashes of hashes, hashes of arrays, &amp; arrays of hashes. In a dynamic language, big hashes tend to be pretty easy to work with. (Not least, they're generally core classes.)
+<li>However, big hashes in JSON (or BSON) are big. The dumped JSON for a busy day weighs in at ~2MB.
+</li></ul></li></ul>
+<h2>Omit what you can, you can recreate it in your models</h2>
+<ul><li>Aggregations
+</li></ul>
+<h2>Beware data duplication, except when it's easier</h2>
+<ul><li>Where your data structures are essentially static, read-only, duplication (de-normalization) can be easier than not
+</li></ul>
+<h2>Snapshots</h2>
+<ul><li>Looking at what's actually needed for display, you actually want a snapshot, a slice.
+<li>Much simpler, but it's a combinatorial quantity of snapshots per day: ~700 structures * ~45 is ~32,000 possibilities
+</li></ul>
+<h1>Outputs</h1>
+<h2>HTML</h2>
+<ul><li>Back to the 'schema': what are the names you want to display? Are they in the data schema in a publishable form?
+<li>Ordering: do you know what order things should be displayed in?
+</li></ul>
+<h2>Graphs</h2>
+<ul><li>expected / actual range issues
+</li></ul>
+<h2>CSV</h2>
+<ul><li>Size, time to generate
+<li>Streaming
+<li>How often is it needed?
+</li></ul>
+<h2>More on personally identifying data</h2>
+<ul><li>You may only notice some things which users might find disturbing once you've got an almost-complete product.
+</li></ul>
+<h2>Google Maps KML layers</h2>
+<ul><li>Quantity of dots (there's a notional 10K max)
+<li>Testing requires a public URL
+<li>Response time
+</li></ul>
+<h1>Operations</h1>
+<h2>Deployment</h2>
+<ul><li>Heroku
+<li>MongoHQ
+<li>Heroku MongoHQ addon
+</li></ul>
+<h2>Pros</h2>
+<ul><li>So quick to start!
+<li>Add-ons are awesome
+<li>Horizontal scale-out is super easy
+</li></ul>
+<h2>Cons</h2>
+<ul><li>It gets expensive
+<li>No vertical scaling for app server instances
+<li>The 30-second request time limit hurts
+</li></ul>
+<h2>Assumptions you shouldn't make</h2>
+<ul><li>Don't make assumptions about the reliability and frequency of data provision
+<ul><li>the manual ticket work problem
+<li>public holidays
+</li></ul><li>Data updates
+</li></ul>
+<h1>Acknowledgements</h1>
+<ul><li>Digital Birmingham
+<li>Mudlark
+<li>Ben Weiner
+<li>NESTA
+<li>Birmingham CC</li></ul>
+  </body>
+</html>

@@ -202,7 +202,7 @@ body.deck-container {
   padding-top: 1em;
   max-height: 100%;
 }
-.csstransforms .slide h1, .csstransforms .slide .vcenter {
+.csstransforms h1.slide, .csstransforms .slide .vcenter {
   padding: 0 48px;
   position: absolute;
   left: 0;

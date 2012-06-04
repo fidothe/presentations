@@ -7,25 +7,185 @@
     <meta name="author" content="Matt Patterson">
     <meta name="viewport" content="width=1024, user-scalable=no">
     <!-- Deck.js CSS files -->
-    <link rel="stylesheet" href="./deck.js/core/deck.core.css">
+    <link rel="stylesheet" href="./deck.js/core/deck.core.css" type="text/css">
+    <link rel="stylesheet" href="./deck.js/extensions/hash/deck.hash.css">
+    <link href='http://fonts.googleapis.com/css?family=Puritan:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./main.css" type="text/css">
     <script type="application/javascript" src="./deck.js/modernizr.custom.js"></script>
   </head>
-  <body>
+  <body class="deck-container">
     <section class="slide">
       <h1>Building Birmingham City Council’s Civic Dashboard</h1>
     </section>
-    <section class="slide">
-      <h1>Matt Patterson</h1>
+    <section>
+      <article class="slide">
+        <h1>Hello, my name is Matt</h1>
+      </article>
+      <article class="slide">
+        <h1>About the project</h1>
+        <p><a href="http://civicdashboard.org.uk/">Birmingham Civic Dashboard</a> receives a report of the requests that come in from members of the public for services from Birmingham City Council each day. It then produces a number of visualisations of that data, such as showing them on a map</p>
+        <p>Digital Birmingham and Mudlark responded to NESTA’s request for local projects aimed at unlocking Council data.</p>
+      </article>
+      <article class="slide">
+        <h1>Stop! (Demo time)</h1>
+      </article>
+    </section>
+    <section>
+      <header class="slide">
+        <h1>Input</h1>
+      </header>
+      <article class="slide">
+        <p><img src="./diagrams/app.svg"></p>
+      </article>
+      <article class="slide">
+        <h2>‘Highly Structured’</h2>
+      </article>
+      <article class="slide">
+        <h2>SAP & CSV (plus a Unicode digression)</h2>
+      </article>
+      <article class="slide">
+        <h2>Understanding the schema / schema stability</h2>
+      </article>
+      <article class="slide">
+        <h2>The personal data problem</h2>
+      </article>
+      <article class="slide">
+        <h2>Other notables</h2>
+        <h3 class="slide">Getting all the possible values of an enumerated field</h3>
+        <h3 class="slide">The strangest things will be genuinely hard for your data provider</h3>
+      </article>
+    </section>
+    <section>
+      <header class="slide">
+        <h1>Storing the data</h1>
+      </header>
+      <article class="slide">
+        <h2>SQL</h2>
+      </article>
+      <article class="slide">
+        <p><img src="./diagrams/ERD.png"></p>
+      </article>
+      <article class="slide">
+        <h2>Data exploration - figuring out what can be done</h2>
+      </article>
+      <article class="slide">
+        <h2>Slicing the data</h2>
+      </article>
+      <article class="slide">
+        <h2>Time, Location, Structure</h2>
+      </article>
+      <article class="slide">
+        <h2>The grand Mongo representation</h2>
+      </article>
+      <article class="slide">
+        <p><img src="./diagrams/mongo-total.svg"></p>
+      </article>
+      <article class="slide">
+        <p><img src="./diagrams/mongo-trimmed_loc.svg"></p>
+      </article>
+      <article class="slide">
+        <p><img src="./diagrams/mongo-trimmed.svg"></p>
+      </article>
+      <article class="slide">
+        <p><img src="./diagrams/mongo-total.svg"></p>
+      </article>
+      <article class="slide">
+        <h2>Deeply nested data structures in MongoDB</h2>
+      </article>
+      <article class="slide">
+        <h2>Omit what you can, you can recreate it in your models</h2>
+      </article>
+      <article class="slide">
+        <h2>Beware data duplication, except when it's easier</h2>
+      </article>
+      <article class="slide">
+        <h2>Snapshots</h2>
+      </article>
+      <article class="slide">
+        <p><img src="./diagrams/mongo-snapshot.svg"></p>
+      </article>
+    </section>
+    <section>
+      <header class="slide">
+        <h1>Outputs</h1>
+      </header>
+      <article class="slide">
+        <h2>The website</h2>
+      </article>
+      <article class="slide">
+        <h2>Performance</h2>
+        <p>Don’t ship your exploration prototype if you can help it</p>
+      </article>
+      <article class="slide">
+        <h2>CSV</h2>
+      </article>
+      <article class="slide">
+        <h2>More on personally identifying data</h2>
+      </article>
+      <article class="slide">
+        <h2>Google Maps KML layers</h2>
+      </article>
+    </section>
+    <section>
+      <header class="slide">
+        <h1>Operations</h1>
+      </header>
+      <article class="slide">
+        <h2>Deployment</h2>
+        <p><strong><a href="http://www.heroku.com/">Heroku</a>:</strong> Platform-as-a-service provider</p>
+        <p><strong><a href="https://www.mongohq.com/">MongoHQ</a>:</strong> Hosted MongoDB provider</p>
+        <p><strong><a href="https://addons.heroku.com/mongohq">Heroku MongoHQ add-on</a>:</strong> Provisioning MongoHQ service from within Heroku, very low configuration barrier</p>
+      </article>
+      <article class="slide">
+        <h2>Pros</h2>
+        <p>Initial set up and deployment time for a project on Heroku is almost zero.</p>
+        <p>The wide range of add-ons make it easy to use things like MongoDB with your app</p>
+        <p>Horizontal scale-out is super-easy (provided your app scales horizontally)</p>
+      </article>
+      <article class="slide">
+        <h2>Cons</h2>
+        <p>It gets expensive, fast.</p>
+        <p>There is no vertical scale for your app server instances</p>
+        <p>The 30-second request limit can really hurt</p>
+      </article>
+      <article class="slide">
+        <h2>Assumptions you shouldn’t make</h2>
+      </article>
+    </section>
+    <section>
+      <header class="slide">
+        <h1>Acknowledgements</h1>
+        <ul>
+          <li><a href="http://www.digitalbirmingham.co.uk/">Digital Birmingham</a></li>
+          <li><a href="http://www.wearemudlark.com/">Mudlark</a></li>
+          <li><a href="http://readingtype.org.uk/">Ben Weiner</a></li>
+          <li><a href="http://www.nesta.org.uk/">NESTA</a></li>
+          <li><a href="http://birmingham.gov.uk/">Birmingham City Council</a></li>
+        </ul>
+      </header>
+    </section>
+    <section>
+      <header class="slide">
+        <h1>Questions?</h1>
+      </header>
+    </section>
+    <section>
+      <header class="slide">
+        <h1>Thank you</h1>
+        <p>Matt Patterson, matt@constituentparts.com</p>
+        <p>Constituent Parts: <a href="http://constituentparts.com/">http://constituentparts.com/</a></p>
+      </header>
     </section>
     <script type="application/javascript" src="./deck.js/jquery-1.7.min.js"></script>
     <!-- Deck Core and extensions -->
     <script type="application/javascript" src="./deck.js/core/deck.core.js"></script>
+    <script src="./deck.js/extensions/hash/deck.hash.js"></script>
 
     <!-- Initialize the deck -->
     <script type="application/javascript">
-    $(function() {
-      $.deck('.slide');
-    });
+      $(function() {
+        $.deck('.slide');
+      });
     </script>
   </body>
 </html>
