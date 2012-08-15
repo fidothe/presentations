@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body.deck-container {
+  font-family: Puritan;
+  font-weight: 400;
+  font-size: 32pt;
+  color: black;
+  text-align: left;
+}
+.deck-container .slide h1 {
+  font-family: Puritan;
+  font-weight: 700;
+  font-size: 3em;
+  text-align: left;
+  margin: 0;
+  padding: 1em 0 0 0;
+}
+.deck-container .slide h2 {
+  font-family: Puritan;
+  font-weight: 700;
+  font-size: 2em;
+  text-align: left;
+  border-bottom: none;
+}
+.deck-container .slide h3 {
+  font-family: Puritan;
+  font-weight: 700;
+  font-size: 1.5em;
+  text-align: left;
+}
+.deck-container .slide q {
+  font-style: italic;
+}
+.deck-container .slide a:link, .deck-container .slide a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+.deck-container .slide a:active, .deck-container .slide a:hover {
+  border-bottom: 1px dashed;
+}
